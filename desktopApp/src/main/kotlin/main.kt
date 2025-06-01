@@ -1,8 +1,8 @@
+import ai.personal.reader.ui.DefaultScreen
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.personalai.reader.ui.DefaultScreen
 import java.awt.Dimension
 
 private const val SAVED_STATE_FILE_NAME = "SAVED_STATE_FILE_NAME"

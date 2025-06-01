@@ -7,6 +7,7 @@ kotlin = "2.1.0"
 compose = "1.7.0"
 agp = "8.7.3"
 androidx-activityCompose = "1.9.3"
+androidx-compose-bom = "2024.06.00"
 androidx-uiTest = "1.7.5"
 buildConfig = "5.5.1"
 kotlinx-coroutines = "1.9.0"
@@ -40,6 +41,8 @@ firebaseCommon = "21.0.0"
 jetbrainsKotlinJvm = "2.1.0"
 jetbrainsKotlinWrappers = "1.0.0-pre.608"
 workRuntime = "2.10.0"
+coreKtx = "1.16.0"
+material = "1.12.0"
 
 [libraries]
 #web
@@ -48,9 +51,12 @@ kotlin-browser = { module = "org.jetbrains.kotlin-wrappers:kotlin-browser" }
 
 #android
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
 androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiToolingPreview" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "core-splashscreen" }
 androidx-startup-runtime = { group = "androidx.startup", name = "startup-runtime", version.ref = "startupRuntime" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "play-services-location" }
 androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 #osmdroid android
@@ -138,6 +144,7 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-common = { group = "com.google.firebase", name = "firebase-common", version.ref = "firebaseCommon" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

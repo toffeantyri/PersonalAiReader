@@ -1,4 +1,4 @@
-package com.personalai.reader.data
+package ai.personal.reader.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

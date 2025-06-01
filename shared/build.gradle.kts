@@ -83,6 +83,7 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.okhttp)
                 implementation(libs.androidx.data.store.preferences)
+                implementation(libs.androidx.startup.runtime)
 //                ksp(libs.room.compiler)
             }
         }

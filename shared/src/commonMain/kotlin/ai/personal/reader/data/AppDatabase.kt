@@ -1,9 +1,4 @@
-package com.personalai.reader.data
-
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.ConstructedBy
-import kotlinx.coroutines.CoroutineDispatcher
+package ai.personal.reader.data
 
 //@Database(entities = [DocumentEntity::class], version = 1)
 //@ConstructedBy(AppDatabaseConstructor::class)
