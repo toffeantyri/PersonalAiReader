@@ -6,13 +6,31 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CE15E8A32DECEED50014A1F1 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE15E8962DECEA3E0014A1F1 /* shared.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		CE15E8962DECEA3E0014A1F1 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../../../shared/build/fat-framework/debug/shared.framework"; sourceTree = "<group>"; };
 		CEEB705E2DECDDFE00C4B3CC /* PersonalAiReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalAiReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CE15E8AF2DECF8410014A1F1 /* Exceptions for "PersonalAiReader" folder in "PersonalAiReader" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CEEB705D2DECDDFE00C4B3CC /* PersonalAiReader */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CEEB70602DECDDFE00C4B3CC /* PersonalAiReader */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CE15E8AF2DECF8410014A1F1 /* Exceptions for "PersonalAiReader" folder in "PersonalAiReader" target */,
+			);
 			path = PersonalAiReader;
 			sourceTree = "<group>";
 		};
@@ -23,16 +41,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE15E8A32DECEED50014A1F1 /* shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE15E8952DECEA3E0014A1F1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE15E8962DECEA3E0014A1F1 /* shared.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CEEB70552DECDDFE00C4B3CC = {
 			isa = PBXGroup;
 			children = (
 				CEEB70602DECDDFE00C4B3CC /* PersonalAiReader */,
+				CE15E8952DECEA3E0014A1F1 /* Frameworks */,
 				CEEB705F2DECDDFE00C4B3CC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,6 +80,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CEEB706C2DECDE0200C4B3CC /* Build configuration list for PBXNativeTarget "PersonalAiReader" */;
 			buildPhases = (
+				CE15E8AD2DECF1760014A1F1 /* Run Script */,
 				CEEB705A2DECDDFE00C4B3CC /* Sources */,
 				CEEB705B2DECDDFE00C4B3CC /* Frameworks */,
 				CEEB705C2DECDDFE00C4B3CC /* Resources */,
@@ -113,6 +142,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CE15E8AD2DECF1760014A1F1 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncd \"${SRCROOT}/../../..\"\n    ./gradlew :shared:build\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CEEB705A2DECDDFE00C4B3CC /* Sources */ = {
@@ -254,16 +304,16 @@
 				DEVELOPMENT_ASSET_PATHS = "\"PersonalAiReader/Preview Content\"";
 				DEVELOPMENT_TEAM = PB7336S53J;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../shared/build/fat-framework/debug";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PersonalAiReader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ai.personal.reader.PersonalAiReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -283,16 +333,16 @@
 				DEVELOPMENT_ASSET_PATHS = "\"PersonalAiReader/Preview Content\"";
 				DEVELOPMENT_TEAM = PB7336S53J;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../shared/build/fat-framework/debug";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PersonalAiReader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ai.personal.reader.PersonalAiReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";

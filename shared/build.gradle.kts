@@ -37,22 +37,12 @@ kotlin {
         .filter { it.konanTarget.family == Family.IOS }
         .forEach {
             it.binaries.framework(listOf(NativeBuildType.DEBUG)) {
-                binaryOption("bundleId", "notebook.ai.reader")
+                binaryOption("bundleId", "ai.personal.reader")
                 baseName = "shared"
                 isStatic = true
-
-                //decompose
                 export(libs.decompose.decompose)
                 export(libs.decompose.extensionsComposeJetbrains)
-
                 export(libs.essenty.lifecycle)
-
-
-                // Optional, only if you need state preservation on Darwin (Apple) targets
-                //export("com.arkivanov.essenty:state-keeper:<essenty_version>")
-
-                // Optional, only if you need state preservation on Darwin (Apple) targets
-                //export("com.arkivanov.parcelize.darwin:runtime:<parcelize_darwin_version>")
             }
         }
 
@@ -84,6 +74,7 @@ kotlin {
                 implementation(libs.ktor.client.okhttp)
                 implementation(libs.androidx.data.store.preferences)
                 implementation(libs.androidx.startup.runtime)
+                implementation(libs.androidx.core.splashscreen)
 //                ksp(libs.room.compiler)
             }
         }
@@ -117,5 +108,8 @@ android {
     defaultConfig {
         minSdk = 24
     }
+}
+dependencies {
+    implementation(libs.androidx.core)
 }
 
