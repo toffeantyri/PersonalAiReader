@@ -1,7 +1,3 @@
-import com.android.build.api.dsl.ManagedVirtualDevice
-import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
@@ -120,4 +116,5 @@ android {
     defaultConfig {
         minSdk = 24
     }
-} 
+}
+
