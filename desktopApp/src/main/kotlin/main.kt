@@ -1,9 +1,8 @@
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import com.personalai.reader.ui.DefaultScreen
 import java.awt.Dimension
 
 private const val SAVED_STATE_FILE_NAME = "SAVED_STATE_FILE_NAME"
@@ -39,11 +38,8 @@ fun main() {
             onCloseRequest = { },
         ) {
             window.minimumSize = Dimension(350, 600)
-//            App(root, modifier = Modifier)
 
-            Surface {
-                Text(text = "any")
-            }
+            DefaultScreen()
 
         }
     }
