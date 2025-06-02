@@ -1,9 +1,9 @@
 package ai.personal.reader.ui.components.root
 
+import ai.personal.reader.ui.components.settings.ISettingsComponent
+import ai.personal.reader.ui.root.home.IHomeComponent
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
-import com.personalai.reader.shared.root.home.IHomeComponent
-import com.personalai.reader.shared.root.settings.ISettingsComponent
 import kotlinx.serialization.Serializable
 
 interface IRootComponent {

@@ -1,10 +1,13 @@
 package ai.personal.reader.ui.components.root
 
+import ai.personal.reader.ui.components.settings.SettingsComponentImpl
+import ai.personal.reader.ui.root.home.HomeComponentImpl
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.stack.*
+import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.bringToFront
+import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
-import com.personalai.reader.shared.root.home.HomeComponentImpl
-import com.personalai.reader.shared.root.settings.SettingsComponentImpl
 
 class RootComponentImpl(
     componentContext: ComponentContext,
@@ -42,6 +45,6 @@ class RootComponentImpl(
     }
 
     override fun onSettingsClick() {
-        navigation.push(IRootComponent.Config.Settings)
+        navigation.bringToFront(IRootComponent.Config.Settings)
     }
 } 
