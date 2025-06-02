@@ -1,6 +1,6 @@
 package ai.personal.reader
 
-import ai.personal.reader.ui.DefaultScreen
+import ai.personal.reader.ui.screens.DefaultScreen
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
