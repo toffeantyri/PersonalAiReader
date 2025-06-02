@@ -1,46 +1,36 @@
-import ai.personal.reader.ui.screens.DefaultScreen
+import ai.personal.reader.ui.components.root.IRootComponent
+import ai.personal.reader.ui.components.root.RootComponentImpl
+import ai.personal.reader.ui.screens.RootContent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import java.awt.Dimension
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import com.arkivanov.essenty.statekeeper.StateKeeperDispatcher
 
 private const val SAVED_STATE_FILE_NAME = "SAVED_STATE_FILE_NAME"
 
 fun main() {
-//    val lifecycle = LifecycleRegistry()
-//    val stateKeeper = StateKeeperDispatcher() //todo need container
-//
-//    initDataStore()
-//    initKoin(enableNetworkLogs = true)
-//
-//    var onExit: () -> Unit = {}
-//
-//    val root = runOnUiThread {
-//        RootBottomComponentImpl(
-//            componentContext =
-//            DefaultComponentContext(
-//                lifecycle,
-//                stateKeeper
-//            ), onExit = onExit
-//        )
-//    }
+    val lifecycle = LifecycleRegistry()
+    val stateKeeper = StateKeeperDispatcher()
+
+    val rootComponent: IRootComponent = RootComponentImpl(
+        componentContext = DefaultComponentContext(
+            lifecycle = lifecycle,
+            stateKeeper = stateKeeper
+        )
+    )
 
     application {
         val windowState = rememberWindowState(width = 300.dp, height = 700.dp)
 
-
-//        onExit = this::exitApplication
-
         Window(
-            title = "Сарафан Доставка Desktop App",
+            title = "Notebook AI Reader",
             state = windowState,
-            onCloseRequest = { },
+            onCloseRequest = { exitApplication() },
         ) {
-            window.minimumSize = Dimension(350, 600)
-
-            DefaultScreen()
-
+            RootContent(rootComponent)
         }
     }
 }
