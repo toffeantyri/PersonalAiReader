@@ -1,3 +1,4 @@
+import ai.personal.reader.runOnUiThread
 import ai.personal.reader.ui.components.root.IRootComponent
 import ai.personal.reader.ui.components.root.RootComponentImpl
 import ai.personal.reader.ui.screens.RootContent
@@ -15,12 +16,15 @@ fun main() {
     val lifecycle = LifecycleRegistry()
     val stateKeeper = StateKeeperDispatcher()
 
-    val rootComponent: IRootComponent = RootComponentImpl(
-        componentContext = DefaultComponentContext(
-            lifecycle = lifecycle,
-            stateKeeper = stateKeeper
+
+    val rootComponent: IRootComponent = runOnUiThread {
+        RootComponentImpl(
+            componentContext = DefaultComponentContext(
+                lifecycle = lifecycle,
+                stateKeeper = stateKeeper
+            )
         )
-    )
+    }
 
     application {
         val windowState = rememberWindowState(width = 300.dp, height = 700.dp)
