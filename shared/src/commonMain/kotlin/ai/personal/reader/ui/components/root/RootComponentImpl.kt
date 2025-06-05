@@ -9,8 +9,8 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.pushNew
-import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.decompose.value.operator.map
 
 class RootComponentImpl(
     componentContext: ComponentContext,
@@ -18,24 +18,25 @@ class RootComponentImpl(
 
     private val navigation = StackNavigation<RootComponent.Config>()
 
-    private val _state = MutableValue(
-        RootState(
-            stack = childStack(
-                source = navigation,
-                initialStack = { listOf(RootComponent.Config.Home) },
-                handleBackButton = true,
-                childFactory = ::childFactory,
-                serializer = RootComponent.Config.serializer()
-            ).value
-        )
+    private val _childStack = childStack(
+        source = navigation,
+        initialStack = { listOf(RootComponent.Config.Home) },
+        handleBackButton = true,
+        childFactory = ::childFactory,
+        serializer = RootComponent.Config.serializer() // Re-enabling serializer
     )
 
-    override val state: Value<RootState> = _state
+    override val state: Value<RootState> = _childStack.map { RootState(stack = it) }
 
     override fun onEvent(event: RootEvent) {
         when (event) {
-            RootEvent.HomeClick -> navigation.pop()
-            RootEvent.SettingsClick -> navigation.pushNew(RootComponent.Config.Settings)
+            RootEvent.HomeClick -> {
+                navigation.pop()
+            }
+
+            RootEvent.SettingsClick -> {
+                navigation.pushNew(RootComponent.Config.Settings)
+            }
         }
     }
 

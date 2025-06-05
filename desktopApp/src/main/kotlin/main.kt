@@ -2,12 +2,15 @@ import ai.personal.reader.runOnUiThread
 import ai.personal.reader.ui.components.root.RootComponent
 import ai.personal.reader.ui.components.root.RootComponentImpl
 import ai.personal.reader.ui.screens.RootContent
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import com.arkivanov.essenty.lifecycle.resume
+import com.arkivanov.essenty.lifecycle.stop
 import com.arkivanov.essenty.statekeeper.StateKeeperDispatcher
 
 private const val SAVED_STATE_FILE_NAME = "SAVED_STATE_FILE_NAME"
@@ -15,7 +18,6 @@ private const val SAVED_STATE_FILE_NAME = "SAVED_STATE_FILE_NAME"
 fun main() {
     val lifecycle = LifecycleRegistry()
     val stateKeeper = StateKeeperDispatcher()
-
 
     val rootComponent: RootComponent = runOnUiThread {
         RootComponentImpl(
@@ -34,6 +36,10 @@ fun main() {
             state = windowState,
             onCloseRequest = { exitApplication() },
         ) {
+            DisposableEffect(lifecycle) {
+                lifecycle.resume()
+                onDispose { lifecycle.stop() }
+            }
             RootContent(rootComponent)
         }
     }

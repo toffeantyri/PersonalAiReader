@@ -2,39 +2,45 @@ package ai.personal.reader.ui.screens
 
 import ai.personal.reader.ui.components.root.RootComponent
 import ai.personal.reader.ui.components.root.RootEvent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.stack.Children
-import com.arkivanov.decompose.extensions.compose.stack.animation.fade
-import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 
 @Composable
 fun RootContent(
     component: RootComponent,
     modifier: Modifier = Modifier,
 ) {
+    val rootState by component.state.subscribeAsState()
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar {
                 NavigationBarItem(
-                    selected = component.state.value.stack.active.configuration is RootComponent.Config.Home,
+                    selected = rootState.stack.active.configuration is RootComponent.Config.Home,
                     onClick = { component.onEvent(RootEvent.HomeClick) },
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") }
                 )
                 NavigationBarItem(
-                    selected = component.state.value.stack.active.configuration is RootComponent.Config.Settings,
+                    selected = rootState.stack.active.configuration is RootComponent.Config.Settings,
                     onClick = { component.onEvent(RootEvent.SettingsClick) },
                     icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
                     label = { Text("Settings") }
@@ -42,14 +48,27 @@ fun RootContent(
             }
         }
     ) { paddingValues ->
-        Children(
-            stack = component.state.value.stack,
-            modifier = Modifier.padding(paddingValues),
-            animation = stackAnimation(fade()),
-        ) { child ->
-            when (val instance = child.instance) {
-                is RootComponent.Child.Home -> HomeContent(component = instance.component)
-                is RootComponent.Child.Settings -> SettingsContent(component = instance.component)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Current Screen: " + (rootState.stack.active.configuration?.toString()
+                    ?: "Unknown"),
+                style = MaterialTheme.typography.headlineMedium
+            )
+
+            Children(
+                stack = rootState.stack,
+                modifier = Modifier.weight(1f),
+            ) { child ->
+                when (val instance = child.instance) {
+                    is RootComponent.Child.Home -> HomeContent(component = instance.component)
+                    is RootComponent.Child.Settings -> SettingsContent(component = instance.component)
+                }
             }
         }
     }

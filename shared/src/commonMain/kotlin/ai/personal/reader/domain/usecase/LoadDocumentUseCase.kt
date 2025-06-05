@@ -4,13 +4,15 @@ import ai.personal.reader.domain.model.Document
 import ai.personal.reader.domain.model.DocumentType
 import ai.personal.reader.domain.repository.DocumentRepository
 import kotlinx.datetime.Clock
-import java.util.UUID
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 class LoadDocumentUseCase(
     private val documentRepository: DocumentRepository // Keep for future use if needed, but not for direct saving here
 ) {
     // This function will need platform-specific implementation to read file content
     // For now, we'll assume content extraction is handled externally or in data layer
+    @OptIn(ExperimentalUuidApi::class)
     suspend operator fun invoke(
         filePath: String,
         documentName: String,
@@ -21,7 +23,7 @@ class LoadDocumentUseCase(
         val dummyContent = "Content from $documentName ($filePath)"
 
         val newDocument = Document(
-            id = UUID.randomUUID().toString(),
+            id = Uuid.random().toString(),
             name = documentName,
             type = documentType,
             content = dummyContent,
