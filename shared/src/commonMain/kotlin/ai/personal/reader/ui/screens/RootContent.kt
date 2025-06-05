@@ -1,6 +1,7 @@
 package ai.personal.reader.ui.screens
 
-import ai.personal.reader.ui.components.root.IRootComponent
+import ai.personal.reader.ui.components.root.RootComponent
+import ai.personal.reader.ui.components.root.RootEvent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -19,7 +20,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 
 @Composable
 fun RootContent(
-    component: IRootComponent,
+    component: RootComponent,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -27,14 +28,14 @@ fun RootContent(
         bottomBar = {
             NavigationBar {
                 NavigationBarItem(
-                    selected = component.stack.value.active.configuration is IRootComponent.Config.Home,
-                    onClick = component::onHomeClick,
+                    selected = component.state.value.stack.active.configuration is RootComponent.Config.Home,
+                    onClick = { component.onEvent(RootEvent.HomeClick) },
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") }
                 )
                 NavigationBarItem(
-                    selected = component.stack.value.active.configuration is IRootComponent.Config.Settings,
-                    onClick = component::onSettingsClick,
+                    selected = component.state.value.stack.active.configuration is RootComponent.Config.Settings,
+                    onClick = { component.onEvent(RootEvent.SettingsClick) },
                     icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
                     label = { Text("Settings") }
                 )
@@ -42,13 +43,13 @@ fun RootContent(
         }
     ) { paddingValues ->
         Children(
-            stack = component.stack,
+            stack = component.state.value.stack,
             modifier = Modifier.padding(paddingValues),
             animation = stackAnimation(fade()),
         ) { child ->
             when (val instance = child.instance) {
-                is IRootComponent.Child.Home -> HomeContent(component = instance.component)
-                is IRootComponent.Child.Settings -> SettingsContent(component = instance.component)
+                is RootComponent.Child.Home -> HomeContent(component = instance.component)
+                is RootComponent.Child.Settings -> SettingsContent(component = instance.component)
             }
         }
     }

@@ -3,6 +3,7 @@ package ai.personal.reader.domain.usecase
 import ai.personal.reader.domain.model.Document
 import ai.personal.reader.domain.model.DocumentType
 import ai.personal.reader.domain.repository.DocumentRepository
+import kotlinx.datetime.Clock
 import java.util.UUID
 
 class LoadDocumentUseCase(
@@ -25,7 +26,7 @@ class LoadDocumentUseCase(
             type = documentType,
             content = dummyContent,
             filePath = filePath,
-            uploadDate = System.currentTimeMillis()
+            uploadDate = Clock.System.now().toEpochMilliseconds()
         )
         // documentRepository.saveDocument(newDocument) // Removed: Saving is a separate UseCase responsibility
         return newDocument

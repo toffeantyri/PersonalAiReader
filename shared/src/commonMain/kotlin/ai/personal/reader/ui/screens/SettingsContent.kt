@@ -1,6 +1,7 @@
 package ai.personal.reader.ui.screens
 
-import ai.personal.reader.ui.components.settings.ISettingsComponent
+import ai.personal.reader.ui.components.settings.SettingsComponent
+import ai.personal.reader.ui.components.settings.SettingsEvent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +18,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SettingsContent(
-    component: ISettingsComponent,
+    component: SettingsComponent,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -39,8 +40,8 @@ fun SettingsContent(
         ) {
             Text("Dark Mode")
             Switch(
-                checked = component.isDarkMode.value,
-                onCheckedChange = { component.onDarkModeToggle() }
+                checked = component.state.value.isDarkMode,
+                onCheckedChange = { component.onEvent(SettingsEvent.ToggleDarkMode(it)) }
             )
         }
     }

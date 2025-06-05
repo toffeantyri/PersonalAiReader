@@ -1,50 +1,59 @@
 package ai.personal.reader.ui.components.root
 
+import ai.personal.reader.ui.components.home.HomeComponent
+import ai.personal.reader.ui.components.home.HomeComponentImpl
+import ai.personal.reader.ui.components.settings.SettingsComponent
 import ai.personal.reader.ui.components.settings.SettingsComponentImpl
-import ai.personal.reader.ui.root.home.HomeComponentImpl
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
-import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.pushNew
+import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 
 class RootComponentImpl(
     componentContext: ComponentContext,
-) : ComponentContext by componentContext, IRootComponent {
+) : RootComponent, ComponentContext by componentContext {
 
-    private val navigation = StackNavigation<IRootComponent.Config>()
-    override val stack: Value<ChildStack<IRootComponent.Config, IRootComponent.Child>> = childStack(
-        source = navigation,
-        initialConfiguration = IRootComponent.Config.Home,
-        handleBackButton = true,
-        childFactory = ::createChild,
-        serializer = IRootComponent.Config.serializer()
+    private val navigation = StackNavigation<RootComponent.Config>()
+
+    private val _state = MutableValue(
+        RootState(
+            stack = childStack(
+                source = navigation,
+                initialStack = { listOf(RootComponent.Config.Home) },
+                handleBackButton = true,
+                childFactory = ::childFactory,
+                serializer = RootComponent.Config.serializer()
+            ).value
+        )
     )
 
-    private fun createChild(
-        config: IRootComponent.Config,
-        componentContext: ComponentContext,
-    ): IRootComponent.Child =
-        when (config) {
-            is IRootComponent.Config.Home -> IRootComponent.Child.Home(
-                HomeComponentImpl(
-                    componentContext
-                )
-            )
+    override val state: Value<RootState> = _state
 
-            is IRootComponent.Config.Settings -> IRootComponent.Child.Settings(
-                SettingsComponentImpl(
-                    componentContext
-                )
-            )
+    override fun onEvent(event: RootEvent) {
+        when (event) {
+            RootEvent.HomeClick -> navigation.pop()
+            RootEvent.SettingsClick -> navigation.pushNew(RootComponent.Config.Settings)
         }
-
-    override fun onHomeClick() {
-        navigation.bringToFront(IRootComponent.Config.Home)
     }
 
-    override fun onSettingsClick() {
-        navigation.bringToFront(IRootComponent.Config.Settings)
+    private fun childFactory(
+        config: RootComponent.Config,
+        componentContext: ComponentContext
+    ): RootComponent.Child = when (config) {
+        is RootComponent.Config.Home -> RootComponent.Child.Home(homeComponent(componentContext))
+        is RootComponent.Config.Settings -> RootComponent.Child.Settings(
+            settingsComponent(
+                componentContext
+            )
+        )
     }
+
+    private fun homeComponent(componentContext: ComponentContext): HomeComponent =
+        HomeComponentImpl(componentContext)
+
+    private fun settingsComponent(componentContext: ComponentContext): SettingsComponent =
+        SettingsComponentImpl(componentContext)
 } 

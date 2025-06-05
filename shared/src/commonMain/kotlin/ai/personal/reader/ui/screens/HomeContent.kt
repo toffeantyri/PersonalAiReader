@@ -1,6 +1,7 @@
 package ai.personal.reader.ui.screens
 
-import ai.personal.reader.ui.root.home.IHomeComponent
+import ai.personal.reader.ui.components.home.HomeComponent
+import ai.personal.reader.ui.components.home.HomeEvent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +18,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomeContent(
-    component: IHomeComponent,
+    component: HomeComponent,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -28,15 +29,15 @@ fun HomeContent(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = component.text.value,
+            text = component.state.value.currentQuestion,
             style = MaterialTheme.typography.headlineMedium
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = component.text.value,
-            onValueChange = component::onTextChange,
+            value = component.state.value.currentQuestion,
+            onValueChange = { component.onEvent(HomeEvent.UpdateQuestion(it)) },
             label = { Text("Enter text") }
         )
     }

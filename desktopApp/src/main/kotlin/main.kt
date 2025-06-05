@@ -1,5 +1,5 @@
 import ai.personal.reader.runOnUiThread
-import ai.personal.reader.ui.components.root.IRootComponent
+import ai.personal.reader.ui.components.root.RootComponent
 import ai.personal.reader.ui.components.root.RootComponentImpl
 import ai.personal.reader.ui.screens.RootContent
 import androidx.compose.ui.unit.dp
@@ -17,7 +17,7 @@ fun main() {
     val stateKeeper = StateKeeperDispatcher()
 
 
-    val rootComponent: IRootComponent = runOnUiThread {
+    val rootComponent: RootComponent = runOnUiThread {
         RootComponentImpl(
             componentContext = DefaultComponentContext(
                 lifecycle = lifecycle,

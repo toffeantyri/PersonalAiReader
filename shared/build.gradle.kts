@@ -58,6 +58,7 @@ kotlin {
                 implementation(libs.ktor.core)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.kotlinx.datetime)
+                implementation(libs.kotlinx.collections.immutable)
 
                 implementation(libs.room.runtime)
                 implementation(libs.sqlite.bundled)
