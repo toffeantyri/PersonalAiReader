@@ -103,7 +103,7 @@ room {
 }
 
 android {
-    namespace = "com.personalai.reader.shared"
+    namespace = "ai.personal.reader"
     compileSdk = 34
     defaultConfig {
         minSdk = 24
