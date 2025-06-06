@@ -7,8 +7,11 @@ import ai.personal.reader.ui.screens.RootContent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.getValue
-import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+
+import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.retainedComponent
 
 class MainActivity : ComponentActivity() {
@@ -20,17 +23,18 @@ class MainActivity : ComponentActivity() {
 //        window.statusBarColor = Color.TRANSPARENT
 //        window.navigationBarColor = Color.TRANSPARENT
 
-        rootComponent = retainedComponent { componentContext ->
-            RootComponentImpl(
-                componentContext = componentContext
-            )
-        }
-
+        rootComponent = retainedComponent(factory = { componentContext ->
+            RootComponentImpl(componentContext, onExitHandle = { finish() })
+        })
 
         setContent {
-            val settingsState by rootComponent.settingsComponent.state.subscribeAsState()
-            AppTheme(isDarkTheme = settingsState.isDarkMode) {
-                RootContent(rootComponent)
+            AppTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    RootContent(rootComponent)
+                }
             }
         }
     }
