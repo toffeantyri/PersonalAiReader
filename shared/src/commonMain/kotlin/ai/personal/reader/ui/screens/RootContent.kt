@@ -1,6 +1,7 @@
 package ai.personal.reader.ui.screens
 
 import ai.personal.reader.theme.AppTheme
+import ai.personal.reader.ui.components.note.NotesListContent
 import ai.personal.reader.ui.components.root.RootComponent
 import ai.personal.reader.ui.components.root.RootEvent
 import androidx.compose.foundation.background
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -45,6 +47,12 @@ fun RootContent(
                         label = { Text("Home") }
                     )
                     NavigationBarItem(
+                        selected = rootState.stack.active.configuration is RootComponent.Config.NotesList,
+                        onClick = { component.onEvent(RootEvent.NotesListClick) },
+                        icon = { Icon(Icons.Default.List, contentDescription = "Заметки") },
+                        label = { Text("Заметки") }
+                    )
+                    NavigationBarItem(
                         selected = rootState.stack.active.configuration is RootComponent.Config.Settings,
                         onClick = { component.onEvent(RootEvent.SettingsClick) },
                         icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
@@ -68,6 +76,7 @@ fun RootContent(
                     when (val instance = child.instance) {
                         is RootComponent.Child.Home -> HomeContent(component = instance.component)
                         is RootComponent.Child.Settings -> SettingsContent(component = instance.component)
+                        is RootComponent.Child.NotesList -> NotesListContent(component = instance.component)
                     }
                 }
             }

@@ -1,8 +1,8 @@
 package ai.personal.reader.platform
 
 import kotlinx.cinterop.BetaInteropApi
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.get
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -38,7 +38,7 @@ actual class FilePicker {
                 val fileName = didPickDocumentAtURL.lastPathComponent ?: "unknown_file"
                 val fileContent = data?.let { nsData ->
                     memScoped {
-                        val bytes = nsData.bytes?.reinterpret<kotlinx.cinterop.ByteVar>()
+                        val bytes = nsData.bytes?.reinterpret<ByteVar>()
                         val length = nsData.length.toInt()
                         if (bytes != null) {
                             ByteArray(length) { index -> bytes[index] }
