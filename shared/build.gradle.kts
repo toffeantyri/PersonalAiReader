@@ -77,6 +77,7 @@ kotlin {
                 implementation(libs.androidx.startup.runtime)
                 implementation(libs.androidx.core.splashscreen)
 //                ksp(libs.room.compiler)
+                implementation(libs.androidx.activityKtx)
             }
         }
 

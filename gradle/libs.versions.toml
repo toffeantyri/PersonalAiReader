@@ -53,6 +53,7 @@ kotlin-browser = { module = "org.jetbrains.kotlin-wrappers:kotlin-browser" }
 
 #android
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activityCompose" }
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
 androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiToolingPreview" }
