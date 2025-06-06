@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 
 interface RootComponent {
     val state: Value<RootState>
+    val settingsComponent: SettingsComponent
 
     fun onEvent(event: RootEvent)
 

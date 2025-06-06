@@ -3,9 +3,10 @@ package ai.personal.reader.ui.components.settings
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 
 class SettingsComponentImpl(componentContext: ComponentContext) : SettingsComponent,
-    ComponentContext by componentContext {
+    ComponentContext by componentContext, InstanceKeeper.Instance {
 
     private val _state = MutableValue(SettingsState())
     override val state: Value<SettingsState> = _state
@@ -24,5 +25,9 @@ class SettingsComponentImpl(componentContext: ComponentContext) : SettingsCompon
                 _state.value = _state.value.copy(error = null)
             }
         }
+    }
+
+    override fun onDestroy() {
+        // Clean up resources if necessary
     }
 } 

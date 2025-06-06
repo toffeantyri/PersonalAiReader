@@ -1,13 +1,16 @@
 import ai.personal.reader.runOnUiThread
+import ai.personal.reader.theme.AppTheme
 import ai.personal.reader.ui.components.root.RootComponent
 import ai.personal.reader.ui.components.root.RootComponentImpl
 import ai.personal.reader.ui.screens.RootContent
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.lifecycle.stop
@@ -40,7 +43,10 @@ fun main() {
                 lifecycle.resume()
                 onDispose { lifecycle.stop() }
             }
-            RootContent(rootComponent)
+            val settingsState by rootComponent.settingsComponent.state.subscribeAsState()
+            AppTheme(isDarkTheme = settingsState.isDarkMode) {
+                RootContent(rootComponent)
+            }
         }
     }
 }

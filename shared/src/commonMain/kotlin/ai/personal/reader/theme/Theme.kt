@@ -7,55 +7,58 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
+
+// Common colors
+val White = Color(0xFFFFFFFF)
+val Black = Color(0xFF000000)
+
+// Define custom colors for Light Theme
+val LightPurple = Color(0xFF6200EE) // A deep purple
+val LightTeal = Color(0xFF03DAC5) // A vibrant teal
+val Red = Color(0xFFB00020) // A standard red for errors
+
+// Define custom colors for Dark Theme
+val DarkPurple = Color(0xFFBB86FC) // A lighter purple
+val DarkTeal = Color(0xFF03DAC6) // A slightly different teal
+val DarkRed = Color(0xFFCF6679) // A reddish pink for errors
+val DarkGrey = Color(0xFF121212) // Very dark grey
 
 private val LightColorScheme = lightColorScheme(
-
-//    primary = DarkBrown,
-//    onPrimary = SmokyWhite,
-//
-//    secondary = Orange,
-//    onSecondary = White,
-//
-//    background = SmokyWhite,
-//    onBackground = DarkBrown,
-//
-//    surface = White,
-//    onSurface = DarkBrown,
-//
-//    surfaceTint = White,
-//
-//    error = RedAttention,
-//    onError = White,
-
+    primary = LightPurple,
+    onPrimary = White,
+    secondary = LightTeal,
+    onSecondary = Black,
+    error = Red,
+    onError = White,
+    background = White,
+    onBackground = Black,
+    surface = White,
+    onSurface = Black,
 )
 
 private val DarkColorScheme = darkColorScheme(
-
-//    primary = DarkBrown, //main text const
-//    onPrimary = SmokyWhite, //const
-//
-//    secondary = Orange, //const
-//    onSecondary = White,  //const
-//
-//    background = DarkBrown, //main background changeable
-//    onBackground = SmokyWhite, //changeable
-//
-//    surface = DarkBrown, // main surface changeable
-//    onSurface = SmokyWhite, // changeable
-//
-//    error = RedAttention,
-//    onError = White,
-//
+    primary = DarkPurple,
+    onPrimary = Black,
+    secondary = DarkTeal,
+    onSecondary = Black,
+    error = DarkRed,
+    onError = Black,
+    background = DarkGrey,
+    onBackground = White,
+    surface = DarkGrey,
+    onSurface = White,
 )
 
 @Stable
 @Composable
-private fun getTypography(): Typography {
+fun getTypography(): Typography {
     return Typography(
 //        titleLarge = bold18TitleTextStyle(),
 //        titleMedium = bold16TextStyle(),
@@ -76,11 +79,16 @@ private fun getTypography(): Typography {
 internal val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
 
 @Composable
-internal fun AppTheme(
+fun AppTheme(
+    isDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
-    val systemIsDark = isSystemInDarkTheme()
-    val isDarkState = remember { mutableStateOf(false) }
+    val isDarkState = remember { mutableStateOf(isDarkTheme) }
+
+    LaunchedEffect(isDarkTheme) {
+        isDarkState.value = isDarkTheme
+    }
+
     CompositionLocalProvider(
         LocalThemeIsDark provides isDarkState
     ) {

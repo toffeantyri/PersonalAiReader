@@ -11,6 +11,7 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.operator.map
+import com.arkivanov.essenty.instancekeeper.getOrCreate
 
 class RootComponentImpl(
     componentContext: ComponentContext,
@@ -27,6 +28,10 @@ class RootComponentImpl(
     )
 
     override val state: Value<RootState> = _childStack.map { RootState(stack = it) }
+
+    override val settingsComponent: SettingsComponent = instanceKeeper.getOrCreate {
+        SettingsComponentImpl(componentContext)
+    }
 
     override fun onEvent(event: RootEvent) {
         when (event) {
@@ -46,9 +51,7 @@ class RootComponentImpl(
     ): RootComponent.Child = when (config) {
         is RootComponent.Config.Home -> RootComponent.Child.Home(homeComponent(componentContext))
         is RootComponent.Config.Settings -> RootComponent.Child.Settings(
-            settingsComponent(
-                componentContext
-            )
+            settingsComponent
         )
     }
 

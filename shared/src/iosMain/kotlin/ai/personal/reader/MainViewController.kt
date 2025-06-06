@@ -1,6 +1,5 @@
 package ai.personal.reader
 
-import ai.personal.reader.theme.AppTheme
 import ai.personal.reader.ui.components.root.RootComponentImpl
 import ai.personal.reader.ui.screens.RootContent
 import androidx.compose.runtime.Composable
@@ -25,9 +24,7 @@ fun App() {
         )
     }
 
-    AppTheme {
-        RootContent(rootComponent)
-    }
+    RootContent(rootComponent)
 }
 
 fun MainViewController(): UIViewController = ComposeUIViewController { App() }
