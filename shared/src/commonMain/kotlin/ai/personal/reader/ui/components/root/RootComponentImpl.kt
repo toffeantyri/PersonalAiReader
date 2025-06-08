@@ -14,6 +14,7 @@ import com.arkivanov.decompose.router.stack.popWhile
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.operator.map
+import com.arkivanov.essenty.backhandler.BackCallback
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 
 class RootComponentImpl(
@@ -22,6 +23,10 @@ class RootComponentImpl(
 ) : RootComponent, ComponentContext by componentContext {
 
     private val navigation = StackNavigation<RootComponent.Config>()
+
+    init {
+        backHandler.register(BackCallback(onBack = ::onBackClicked))
+    }
 
     private val _childStack = childStack(
         source = navigation,
@@ -58,7 +63,8 @@ class RootComponentImpl(
 
     override fun onBackClicked() {
         if (_childStack.value.active.configuration != RootComponent.Config.Home) {
-            navigation.pop()
+            navigation.popWhile { it !is RootComponent.Config.Home }
+            navigation.replaceCurrent(RootComponent.Config.Home)
         } else {
             onExitHandle()
         }
