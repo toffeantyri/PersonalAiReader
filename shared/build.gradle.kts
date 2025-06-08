@@ -50,24 +50,36 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                // Compose
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
+
+                // Koin
                 implementation(libs.koin.core)
+
+                // Coroutines
                 implementation(libs.kotlinx.coroutines.core)
+
+                // Ktor for networking
                 implementation(libs.ktor.core)
+                implementation(libs.ktor.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+
+                // Kotlinx Serialization
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.kotlinx.collections.immutable)
 
+                // Room Database
                 implementation(libs.room.runtime)
                 implementation(libs.sqlite.bundled)
                 implementation(libs.sqlite)
 
+                // Decompose for navigation
                 api(libs.decompose.decompose)
                 api(libs.decompose.extensionsComposeJetbrains)
                 api(libs.essenty.lifecycle)
-
             }
         }
         val androidMain by getting {

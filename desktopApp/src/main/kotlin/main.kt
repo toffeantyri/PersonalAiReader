@@ -1,3 +1,4 @@
+import ai.personal.reader.di.initKoin
 import ai.personal.reader.ui.components.root.RootComponentImpl
 import ai.personal.reader.ui.screens.RootContent
 import androidx.compose.runtime.remember
@@ -12,6 +13,7 @@ import com.arkivanov.essenty.statekeeper.StateKeeperDispatcher
 import kotlin.system.exitProcess
 
 fun main() = application {
+    initKoin()
     val lifecycle = remember { LifecycleRegistry() }
     val stateKeeper = remember { StateKeeperDispatcher() }
 
