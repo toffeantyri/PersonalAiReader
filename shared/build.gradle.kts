@@ -80,6 +80,7 @@ kotlin {
                 api(libs.decompose.decompose)
                 api(libs.decompose.extensionsComposeJetbrains)
                 api(libs.essenty.lifecycle)
+                api(libs.essenty.lifecycle.coroutines)
             }
         }
         val androidMain by getting {
@@ -88,7 +89,6 @@ kotlin {
                 implementation(libs.androidx.data.store.preferences)
                 implementation(libs.androidx.startup.runtime)
                 implementation(libs.androidx.core.splashscreen)
-//                ksp(libs.room.compiler)
                 implementation(libs.androidx.activityKtx)
             }
         }
@@ -105,8 +105,8 @@ kotlin {
 
         val jvmMain by getting {
             dependencies {
+                implementation(libs.kotlinx.coroutines.swing)
 //                implementation(libs.ktor.client.cio)
-//                ksp(libs.room.compiler)
             }
         }
     }
@@ -124,6 +124,8 @@ android {
     }
 }
 dependencies {
+    "kspAndroid"(libs.room.compiler)
+    "kspJvm"(libs.room.compiler)
     implementation(libs.androidx.core)
 }
 
